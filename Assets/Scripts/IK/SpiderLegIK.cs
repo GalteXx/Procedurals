@@ -28,7 +28,7 @@ public class SpiderLegIK : MonoBehaviour
 
     private void Awake()
     {
-        Init();
+        Initialize();
     }
 
     private void Update()
@@ -36,7 +36,7 @@ public class SpiderLegIK : MonoBehaviour
         
     }
 
-    void Init()
+    void Initialize()
     {
         //initial array
         _bones = new Transform[chainLength + 1];
@@ -93,7 +93,7 @@ public class SpiderLegIK : MonoBehaviour
         else
         {
             for (int i = 0; i < _positions.Length - 1; i++)
-                _positions[i + 1] = Vector3.Lerp(_positions[i + 1], _positions[i] + StartDirectionSucc[i], SnapBackStrength);
+                _positions[i + 1] = Vector3.Lerp(_positions[i + 1], _positions[i] + _startDirectionSucc[i], 1);
 
             for (int iteration = 0; iteration < iterations; iteration++)
             {
