@@ -23,23 +23,22 @@ public class FabrikPlaneSolver : MonoBehaviour
     private void Update()
     {
         DrawBones(bones.Select(x => x.position), Color.white);
+        _passPositions = bones.Select(x => x.position).ToArray();
         for(int i = 0; i < iterations; i++)
         {
-            _previousPassPositions = _passPositions;
             BackwardsPass();
-            DrawBones(_passPositions.Skip(1), Color.green);
-            _previousPassPositions = _passPositions;
             ForwardPass();
-            DrawBones(_passPositions.SkipLast(1), Color.magenta);
             /*if (Vector3.Distance(_passPositions[^2], transform.position) <= delta)
                 break;*/
         }
+
+        DrawBones(_passPositions, Color.blue);
     }
 
     private void Initialize()
     {
         _bonesLenght = new float[bones.Length - 1];
-        _passPositions = new Vector3[bones.Length + 1];
+        _passPositions = new Vector3[bones.Length];
 
         for (int i = 0; i < bones.Length - 1; i++)
         {
@@ -49,25 +48,31 @@ public class FabrikPlaneSolver : MonoBehaviour
 
     private void BackwardsPass()
     {
-        _passPositions[^1] = transform.position;
 
-        for (int i = bones.Length - 1; i > 0; i--)
+        _previousPassPositions = _passPositions;
+
+        _passPositions[^1] = transform.position;
+        for (int i = bones.Length - 2; i > 0; i--)
         {
-            _passPositions[i] = _previousPassPositions[i + 1] +
-                (bones[i-1].position - _previousPassPositions[i + 1]).normalized * _bonesLenght[i - 1];
+                _passPositions[i] = _passPositions[i + 1] +
+                    (_previousPassPositions[i] - _passPositions[i + 1]).normalized * _bonesLenght[i];
         }
+        _passPositions[0] = _passPositions[1] +
+            (bones[0].position - _passPositions[1]).normalized * _bonesLenght[0]; //а нам вообще на 0 не похуй?
+        //DrawBones(_passPositions, Color.green);
     }
 
     private void ForwardPass()
     {
-        _passPositions[^1] = transform.position;
+        _previousPassPositions = _passPositions;
+
         _passPositions[0] = bones[0].position;
-        
-        for(int i = 0; i < bones.Length - 1; i++)
+        for(int i = 1; i < bones.Length - 1; i++)
         {
-            _passPositions[i + 1] = bones[i].position +
-                (_previousPassPositions[i + 1] - bones[i].position).normalized * _bonesLenght[i];
+            _passPositions[i] = _passPositions[i - 1] +
+                (_previousPassPositions[i] - _passPositions[i - 1]).normalized * _bonesLenght[i];
         }
+        //DrawBones(_passPositions, Color.magenta);
     }
 
 
