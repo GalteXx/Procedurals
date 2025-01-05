@@ -22,17 +22,28 @@ public class FabrikPlaneSolver : MonoBehaviour
 
     private void Update()
     {
+        SolveIK();
+        RotateBones();
         DrawBones(bones.Select(x => x.position), Color.white);
+        DrawBones(_passPositions, Color.blue);
+    }
+
+    private void RotateBones()
+    {
+        for (int i = 0; i < bones.Length - 1; i++)
+            bones[i].LookAt(_passPositions[i + 1]);
+    }
+
+    private void SolveIK()
+    {
         _passPositions = bones.Select(x => x.position).ToArray();
-        for(int i = 0; i < iterations; i++)
+        for (int i = 0; i < iterations; i++)
         {
             BackwardsPass();
             ForwardPass();
             /*if (Vector3.Distance(_passPositions[^2], transform.position) <= delta)
                 break;*/
         }
-
-        DrawBones(_passPositions, Color.blue);
     }
 
     private void Initialize()
@@ -48,17 +59,14 @@ public class FabrikPlaneSolver : MonoBehaviour
 
     private void BackwardsPass()
     {
-
         _previousPassPositions = _passPositions;
 
         _passPositions[^1] = transform.position;
-        for (int i = bones.Length - 2; i > 0; i--)
+        for (int i = bones.Length - 2; i >= 0; i--)
         {
                 _passPositions[i] = _passPositions[i + 1] +
                     (_previousPassPositions[i] - _passPositions[i + 1]).normalized * _bonesLenght[i];
         }
-        _passPositions[0] = _passPositions[1] +
-            (bones[0].position - _passPositions[1]).normalized * _bonesLenght[0]; //а нам вообще на 0 не похуй?
         //DrawBones(_passPositions, Color.green);
     }
 
@@ -67,10 +75,10 @@ public class FabrikPlaneSolver : MonoBehaviour
         _previousPassPositions = _passPositions;
 
         _passPositions[0] = bones[0].position;
-        for(int i = 1; i < bones.Length - 1; i++)
+        for(int i = 1; i < bones.Length; i++)
         {
             _passPositions[i] = _passPositions[i - 1] +
-                (_previousPassPositions[i] - _passPositions[i - 1]).normalized * _bonesLenght[i];
+                (_previousPassPositions[i] - _passPositions[i - 1]).normalized * _bonesLenght[i - 1];
         }
         //DrawBones(_passPositions, Color.magenta);
     }
