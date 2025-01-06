@@ -30,10 +30,11 @@ public class FabrikPlaneSolver
         }
     }
 
-    public FabrikPlaneSolver(Transform[] bones, Transform mainBody, int iterations, float delta)
+    public FabrikPlaneSolver(Transform[] bones, Transform target, Transform mainBody, int iterations, float delta)
     {
         _bones = bones;
         _iterations = iterations;
+        _target = target;
         _delta = delta;
         _mainBody = mainBody;
 
