@@ -5,6 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 using System;
+using System.Linq;
 
 public class SpiderLegIK : MonoBehaviour
 {
@@ -136,16 +137,17 @@ public class SpiderLegIK : MonoBehaviour
     }
 
 
-    private void DrawBones()
+    private void DrawBones(IEnumerable<Vector3> positions, Color col)
     {
-        for (int i = 0; i < _bones.Length - 2; i++)
+        DrawCross(positions.ElementAt(0), Color.red, 0.05f);
+        for (int i = 0; i < positions.Count() - 1; i++)
         {
-            if (_bones[i + 1] == null)
+            if (positions.ElementAt(i + 1) == null)
                 Debug.Log(i + 1);
-            Debug.DrawLine(_bones[i].position, _bones[i + 1].position, Color.white, 0.01f, false);
+            Debug.DrawLine(positions.ElementAt(i), positions.ElementAt(i + 1), col, 0.01f, false);
+            DrawCross(positions.ElementAt(i + 1), Color.red, 0.05f);
         }
 
-        DrawCross(_rootBone.position, Color.red);
     }
     private void DrawCross(Vector3 pos, Color color, float w = 0.1f)
     {
