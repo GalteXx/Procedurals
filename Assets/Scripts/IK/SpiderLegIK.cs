@@ -4,6 +4,7 @@ using System.Linq;
 
 public class SpiderLegIK : MonoBehaviour
 {
+    [SerializeField] Transform target;
     [Header("TargetBones")]
     [SerializeField] Transform rootBone;
     [SerializeField] Transform leafBone;
@@ -17,7 +18,34 @@ public class SpiderLegIK : MonoBehaviour
 
     private void Awake()
     {
-        _lastSegments = new(_bones, transform, iterations, delta);
+        _bones = IterateBones();
+        Debug.Log(_bones.Length);
+        _lastSegments = new(_bones, target, transform, iterations, delta);
+    }
+
+    private void Update()
+    {
+        var positions = _lastSegments.SolveIK();
+        for(int i = 0; i < _bones.Length - 1; i++)
+        {
+            _bones[i].LookAt(positions[i + 1]);
+        }
+    }
+
+    private Transform[] IterateBones()
+    {
+        var currentBone = leafBone;
+        List<Transform> bones = new();
+        while (currentBone != rootBone)
+        {
+            bones.Add(currentBone);
+            currentBone = currentBone.parent;
+            if (currentBone == null)
+                throw new UnityException("Incorrect bone configuration");
+        }
+        bones.Add(rootBone);
+        bones.Reverse();
+        return bones.ToArray();
     }
 
     private void DrawBones(IEnumerable<Vector3> positions, Color col)
