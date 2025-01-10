@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1354,8 +1354,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ab86b22f3b027438291b82fec771a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainLength: 4
+  target: {fileID: 0}
+  rootBone: {fileID: 0}
   leafBone: {fileID: 5042183952590992722}
+  delta: 0
+  iterations: 0
 --- !u!1 &1961773156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3679,9 +3682,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9151164205346829493}
-  - component: {fileID: 9151164205346829494}
-  - component: {fileID: 9151164205346829496}
-  - component: {fileID: 9151164205346829495}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -3821,109 +3821,6 @@ Transform:
   - {fileID: 800041721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9151164205346829494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481588649732337167}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 3615036083262306003}
-  - {fileID: 2487796666775040850}
-  - {fileID: 282664903807506041}
-  - {fileID: 644497401946412748}
-  - {fileID: 2113545700729005601}
-  - {fileID: 180355278983789340}
-  - {fileID: 7319314130760182931}
-  - {fileID: 964496929811536520}
-  - {fileID: 1823619473405799944}
-  - {fileID: 621900980632629276}
-  - {fileID: 1396570808571984533}
-  - {fileID: 229279358302863152}
-  - {fileID: 3854952901509166967}
-  - {fileID: 6955076113306640068}
-  - {fileID: 726271331818640664}
-  - {fileID: 12040474316452892}
-  - {fileID: 2994464350353276357}
-  - {fileID: 7410085490419809552}
-  - {fileID: 1586338945378262395}
-  - {fileID: 4455408900253836797}
-  - {fileID: 8807484941169502609}
-  - {fileID: 6681214908091431599}
-  - {fileID: 8458717320041346983}
-  - {fileID: 817757097075953082}
-  - {fileID: 6932641143294042279}
-  - {fileID: 3510471565702676155}
-  - {fileID: 4750791794353876163}
-  - {fileID: 4528936182392837329}
-  - {fileID: 2786925804492120186}
-  - {fileID: 4216571734196315840}
-  - {fileID: 4417656193473025946}
-  - {fileID: 8788591081332832272}
-  - {fileID: 8129531906660078351}
-  - {fileID: 505141228650373417}
-  - {fileID: 5797159313863888347}
-  - {fileID: 2101267991769949861}
-  - {fileID: 2569550792906013898}
-  - {fileID: 6270250509473587060}
-  - {fileID: 1814330137305149033}
-  - {fileID: 5536751859225305986}
-  - {fileID: 1696327885913190581}
-  - {fileID: 7623930275539265595}
-  - {fileID: 1081295276508733431}
-  - {fileID: 4245450328642239170}
-  - {fileID: 3960760062401303728}
-  - {fileID: 6965107749686306196}
-  - {fileID: 5042183952590992722}
---- !u!114 &9151164205346829495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481588649732337167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 350853125}
-    m_Active: 1
-  m_Effectors: []
---- !u!95 &9151164205346829496
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481588649732337167}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
