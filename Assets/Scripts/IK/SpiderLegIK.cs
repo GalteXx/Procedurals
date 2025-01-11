@@ -12,7 +12,7 @@ public class SpiderLegIK : MonoBehaviour
     [SerializeField] float delta;
     [SerializeField] int iterations;
 
-    private FabrikPlaneSolver _lastSegments;
+    private FabrikPlaneSolver _segnmentsExstension;
     private Transform[] _bones;
     
 
@@ -20,16 +20,27 @@ public class SpiderLegIK : MonoBehaviour
     {
         _bones = IterateBones();
         Debug.Log(_bones.Length);
-        _lastSegments = new(_bones, target, transform, iterations, delta);
+        _segnmentsExstension = new(_bones, target, transform, iterations, delta);
     }
 
     private void Update()
     {
-        var positions = _lastSegments.SolveIK();
+        //RotateTowardsTatget();
+        UpdateSegmentsLength();
+    }
+    
+    private void UpdateSegmentsLength()
+    {
+        var positions = _segnmentsExstension.SolveIK();
         for(int i = 0; i < _bones.Length - 1; i++)
         {
             _bones[i].LookAt(positions[i + 1]);
         }
+    }
+
+    private void RotateTowardsTatget()
+    {
+        rootBone.LookAt(new Vector3(target.position.x, rootBone.position.y, target.position.z));
     }
 
     private Transform[] IterateBones()
